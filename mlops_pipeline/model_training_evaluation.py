@@ -77,3 +77,31 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    import pandas as pd
+    import matplotlib.pyplot as plt
+
+    datos = pd.read_csv(ARTIFACTS / "comparacion_modelos.csv")
+
+    columnas = [
+        "precision_riesgo",
+        "recall_riesgo",
+        "f1_riesgo",
+        "average_precision_pr_auc"
+    ]
+
+    grafica = datos.set_index("modelo")[columnas].plot(
+        kind="bar", figsize=(10, 5), rot=0
+    )
+
+    grafica.set_title("Comparacion de modelos")
+    grafica.set_ylabel("Puntaje")
+    grafica.set_ylim(0, 1)
+    grafica.legend(["Precision", "Recall", "F1", "PR-AUC"])
+
+    plt.tight_layout()
+    plt.savefig(ARTIFACTS / "comparacion_modelos.png")
+    plt.close()
+
+    print("Grafica generada correctamente")
