@@ -1,10 +1,10 @@
-# Proyecto Final - Machine Learning
+Proyecto Final - Machine Learning
 
-**Estudiante:** Miguel Ángel López Ardila  
-**Asignatura:** Machine Learning  
-**Universidad:** Universidad Católica Luis Amigó
+Estudiante: Miguel Ángel López Ardila  
+Asignatura: Machine Learning  
+Universidad: Universidad Católica Luis Amigó
 
-## Comprensión del negocio
+Comprensión del negocio
 
 El proyecto busca desarrollar un modelo de Machine Learning que permita predecir si un cliente pagará su crédito a tiempo, utilizando información financiera y características de los clientes.
 
@@ -12,13 +12,13 @@ El objetivo es identificar posibles riesgos de incumplimiento de pago, ayudando 
 
 Para ello, se utiliza una base de datos de créditos, realizando procesos de limpieza, análisis exploratorio, preparación de datos, entrenamiento y evaluación de modelos predictivos.
 
-## Segunda entrega - Entrenamiento y evaluación
+Segunda entrega - Entrenamiento y evaluación
 
 Se entrenaron y compararon modelos de clasificación, entre ellos regresión logística y Random Forest.
 
 Durante la evaluación se encontró que aproximadamente el 95 % de los clientes pagaba sus créditos a tiempo. Debido a este desbalance, se utilizaron métricas como precisión, recall, F1, F2 y PR-AUC para evaluar el desempeño de los modelos.
 
-### Optimización del modelo
+Optimización del modelo
 
 Se seleccionó Random Forest y se ajustó su umbral de decisión utilizando datos de validación, pasando de 0.50 a 0.20.
 
@@ -31,7 +31,7 @@ Los resultados obtenidos en el conjunto de prueba fueron:
 | F1-score | 3,81 % | 16,15 % |
 | F2-score | 2,43 % | 23,38 % |
 
-### Justificación de los resultados
+Justificación de los resultados
 
 Inicialmente, el modelo identificaba solamente 2 de los 102 clientes que incumplieron. Después de ajustar el umbral, logró identificar 34.
 
