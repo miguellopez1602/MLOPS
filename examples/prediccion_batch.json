@@ -1,0 +1,24 @@
+{
+  "registros": [
+    {
+      "capital_prestado": 2000000,
+      "plazo_meses": 12,
+      "edad_cliente": 30,
+      "salario_cliente": 4000000,
+      "cuota_pactada": 400000,
+      "tipo_credito": 4,
+      "tipo_laboral": "Empleado",
+      "tendencia_ingresos": "Estable"
+    },
+    {
+      "capital_prestado": 10000000,
+      "plazo_meses": 24,
+      "edad_cliente": 45,
+      "salario_cliente": 1500000,
+      "cuota_pactada": 800000,
+      "tipo_credito": 9,
+      "tipo_laboral": "Independiente",
+      "tendencia_ingresos": "Decreciente"
+    }
+  ]
+}

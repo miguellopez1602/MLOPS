@@ -1,38 +1,61 @@
 pipeline {
     agent any
-    options { timestamps() }
+    options {
+        timestamps()
+        skipDefaultCheckout(true)
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '15'))
+    }
     triggers { pollSCM('H/15 * * * *') }
     stages {
-        stage('Checkout') {
+        stage('Checkout GitHub') {
             steps { checkout scm }
         }
-        stage('Comprobar estructura') {
+        stage('Verificar estructura') {
             steps {
                 sh '''
-                  test -f Base_de_datos.csv
-                  test -f requirements.txt
-                  test -f mlops_pipeline/Cargar_datos.ipynb
-                  test -f mlops_pipeline/comprension_eda.ipynb
-                  test -f mlops_pipeline/ft_engineering.py
-                  test -f mlops_pipeline/model_training_evaluation.py
-                  test -f mlops_pipeline/model_deploy.py
-                  test -f mlops_pipeline/model_monitoring.py
+                  set -eu
+                  for f in Base_de_datos.csv requirements.txt requirements-ci.txt \
+                      mlops_pipeline/Cargar_datos.ipynb mlops_pipeline/comprension_eda.ipynb \
+                      mlops_pipeline/ft_engineering.py mlops_pipeline/model_training_evaluation.py \
+                      mlops_pipeline/model_deploy.py mlops_pipeline/model_monitoring.py \
+                      tests/test_pipeline.py Dockerfile; do test -f "$f"; done
                 '''
             }
         }
-        stage('Instalar y probar') {
+        stage('Pruebas y cobertura') {
             steps {
                 sh '''
+                  set -eu
                   python3 -m venv .venv
-                  .venv/bin/python -m pip install --upgrade pip
-                  .venv/bin/python -m pip install -r requirements.txt
-                  .venv/bin/python -m pytest -q tests/
+                  .venv/bin/python -m pip install -q -r requirements-ci.txt
+                  .venv/bin/python -m pytest -q tests --junitxml=junit.xml \
+                    --cov=mlops_pipeline --cov-report=xml:coverage.xml --cov-report=term
                 '''
             }
+        }
+        stage('Sintaxis') {
+            steps { sh '.venv/bin/python -m compileall -q mlops_pipeline' }
         }
     }
     post {
-        success { echo 'Pipeline completado: estructura y tests correctos.' }
-        failure { echo 'Pipeline falló: revisar Console Output.' }
+        always {
+            junit allowEmptyResults: true, testResults: 'junit.xml'
+            archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage.xml'
+        }
+        success { echo 'Jenkins CI: pruebas y estructura correctas.' }
+        failure { echo 'Jenkins CI: error; revisar Console Output y reporte JUnit.' }
+        cleanup {
+            script {
+                // Para avisos externos: definir CI_NOTIFICATION_EMAIL y configurar SMTP en Jenkins.
+                if (env.CI_NOTIFICATION_EMAIL?.trim()) {
+                    mail to: env.CI_NOTIFICATION_EMAIL,
+                         subject: "MLOPS-CI ${currentBuild.currentResult}: ${env.BUILD_NUMBER}",
+                         body: "Resultado: ${currentBuild.currentResult}\n${env.BUILD_URL}"
+                } else {
+                    echo 'Notificación por correo desactivada: falta CI_NOTIFICATION_EMAIL/SMTP.'
+                }
+            }
+        }
     }
 }

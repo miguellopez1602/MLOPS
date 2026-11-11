@@ -5,10 +5,19 @@ __pycache__/
 .ipynb_checkpoints/
 .pytest_cache/
 .coverage
+coverage.xml
 htmlcov/
 .env
 .env.*
-artifacts/
 .DS_Store
 .idea/
 .vscode/
+# El modelo es reproducible mediante entrenamiento; no agregar binarios al repo
+artifacts/*.joblib
+artifacts/monitoreo_drift.csv
+artifacts/historial_monitoreo.csv
+# Sí versionar resultados pequeños y gráficos para trazabilidad
+!artifacts/*.json
+!artifacts/*.csv
+artifacts/busqueda_umbrales.csv
+!artifacts/*.png

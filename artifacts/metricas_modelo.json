@@ -1,0 +1,66 @@
+{
+  "modelo": "Random_forest_ajustado",
+  "umbral": 0.375,
+  "umbral_original": 0.5,
+  "precision_minima_validacion": 0.1,
+  "criterio_precision_cumplido": true,
+  "objetivo": "1 = incumplimiento",
+  "train": 8610,
+  "dev": 6457,
+  "validacion": 2153,
+  "test": 2153,
+  "f2_validacion": 0.20499108734402852,
+  "evaluacion_original": {
+    "accuracy": 0.9512308406874129,
+    "precision_riesgo": 0.42105263157894735,
+    "recall_riesgo": 0.0784313725490196,
+    "f1_riesgo": 0.1322314049586777,
+    "f2_riesgo": 0.0936768149882904,
+    "roc_auc": 0.6447309299146279,
+    "pr_auc": 0.15313529375587612,
+    "tn": 2040,
+    "fp": 11,
+    "fn": 94,
+    "tp": 8
+  },
+  "evaluacion_optimizada": {
+    "accuracy": 0.89921040408732,
+    "precision_riesgo": 0.147239263803681,
+    "recall_riesgo": 0.23529411764705882,
+    "f1_riesgo": 0.1811320754716981,
+    "f2_riesgo": 0.21015761821366025,
+    "roc_auc": 0.6447309299146279,
+    "pr_auc": 0.15313529375587612,
+    "tn": 1912,
+    "fp": 139,
+    "fn": 78,
+    "tp": 24
+  },
+  "matriz_confusion": [
+    [
+      1912,
+      139
+    ],
+    [
+      78,
+      24
+    ]
+  ],
+  "consistencia_pr_auc_cv3_mean": 0.13560105461646554,
+  "consistencia_pr_auc_cv3_std": 0.0012957590500160597,
+  "pr_auc_cv3_fold": [
+    0.13552960068904418,
+    0.13722254891044253,
+    0.13405101424990998
+  ],
+  "segundos_entrenamiento_y_seleccion": 13.563,
+  "ms_inferencia_por_registro": 0.05,
+  "python_version": "3.11.9",
+  "sklearn_version": "1.8.0",
+  "pandas_version": "2.2.3",
+  "numpy_version": "2.3.5",
+  "sha256_dataset": "8ddfcaa953ab51e4f87b5aa3bc5438fc4e72f92c4f6f18d4f479745e63197b5b",
+  "sha256_modelo": "01a68f948730df34cdb3cd36091693c2dc508565bc417fb45cc42207300c6ec9",
+  "entrenado_utc": "2026-11-11T22:53:46.228495+00:00",
+  "limitacion": "Uso educativo; no utilizar para rechazar créditos reales."
+}
